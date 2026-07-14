@@ -25,12 +25,19 @@ def start():
         print("Gemini finished!")
 
     cortex.open("https://gemini.google.com")
-    time.sleep(3)
+    
+    #time.sleep(4)
+   # cortex.driver.minimize_window()
+    cortex.wait_for_element_visible('button[data-test-id="read-more-button"]')
 
-    if cortex.is_element_visible(".read-more-button"):
-        cortex.click(".read-more-button")
+    print(cortex.is_element_visible('button[data-test-id="read-more-button"]'))
+    if cortex.is_element_visible('button[data-test-id="read-more-button"]'):
+        cortex.click('button[data-test-id="read-more-button"]')
         time.sleep(1)
+
+    if cortex.is_element_visible('[data-test-id="accept-button"]'):
         cortex.click('[data-test-id="accept-button"]')
+
 
     input_box = 'div.ql-editor[contenteditable="true"]'
     cortex.wait_for_element_visible(input_box)
@@ -53,7 +60,8 @@ def start():
 
         wait()
 
-        return repr(cortex.find_elements("message-content")[-1].text)
+        return cortex.find_elements("message-content")[-1].text
+    
 
     return gemini
 
@@ -71,3 +79,4 @@ def start():
 
         print(f"Gemini: {bot(msg)}")'''
 
+    
